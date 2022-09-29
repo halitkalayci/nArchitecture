@@ -16,11 +16,10 @@ namespace Application.Features.Brands.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<Brand,CreatedBrandDto>().ReverseMap();
-            CreateMap<Brand,CreateBrandCommand>().ReverseMap();
-            CreateMap<IPaginate<Brand>, BrandListModel>().ReverseMap();
-            CreateMap<Brand,BrandListDto>().ReverseMap();
-            CreateMap<Brand, BrandGetByIdDto>().ReverseMap();
+            CreateMap<CreateBrandCommand, Brand>().ReverseMap();
+            CreateMap<Brand, CreatedBrandDto>().ReverseMap();
+            CreateMap<Brand, BrandListDto>().ReverseMap();
+            CreateMap<BrandListModel,IPaginate<Brand>>().ReverseMap().ForMember(i=>i.Brands,opt=>opt.MapFrom(c=>c.Items));
         }
     }
 }

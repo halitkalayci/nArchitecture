@@ -1,8 +1,6 @@
-﻿using Application.Features.Models.Models;
-using Application.Features.Models.Queries.GetListModel;
-using Application.Features.Models.Queries.GetListModelByDynamic;
+﻿using Application.Features.Models.Commands.CreateModel;
+using Application.Features.Models.Queries.GetModelListWithBrand;
 using Core.Application.Requests;
-using Core.Persistence.Dynamic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,21 +11,17 @@ namespace WebAPI.Controllers
     public class ModelsController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult> GetList([FromQuery] PageRequest pageRequest)
+        public async Task<IActionResult> GetAllWithBrand([FromQuery] PageRequest pageRequest)
         {
-            GetListModelQuery getListModelQuery = new GetListModelQuery { PageRequest = pageRequest };
-            ModelListModel result = await Mediator.Send(getListModelQuery);
+            GetModelListWithBrandQuery query = new() { PageRequest = pageRequest };
+            var result = await Mediator.Send(query);
             return Ok(result);
-
         }
-
-        [HttpPost("GetList/ByDynamic")]
-        public async Task<ActionResult> GetListByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic)
+        [HttpPost]
+        public async Task<IActionResult> AddNew([FromBody] CreateModelCommand createModelCommand)
         {
-            GetListModelByDynamicQuery getListByDynamicModelQuery = new GetListModelByDynamicQuery { PageRequest = pageRequest, Dynamic = dynamic };
-            ModelListModel result = await Mediator.Send(getListByDynamicModelQuery);
-            return Ok(result);
-
+            var result = await Mediator.Send(createModelCommand);
+            return Created("", result);
         }
     }
 }

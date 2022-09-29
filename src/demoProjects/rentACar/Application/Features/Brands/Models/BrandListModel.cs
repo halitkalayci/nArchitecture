@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Models
 {
-    public class BrandListModel:BasePageableModel
+    public class BrandListModel : BasePageableModel
     {
-        public IList<BrandListDto> Items { get; set; }
-
-        //
+        public List<BrandListDto> Brands { get; set; }
     }
 }

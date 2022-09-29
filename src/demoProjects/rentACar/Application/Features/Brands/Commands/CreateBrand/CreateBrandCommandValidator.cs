@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Features.Brands.Constants;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.CreateBrand
 {
-    public class CreateBrandCommandValidator:AbstractValidator<CreateBrandCommand>
+    public class CreateBrandCommandValidator : AbstractValidator<CreateBrandCommand>
     {
         public CreateBrandCommandValidator()
         {
-            RuleFor(c => c.Name).NotEmpty();
-            RuleFor(c => c.Name).MinimumLength(2);
+            RuleFor(c => c.Name).MinimumLength(3).WithMessage(String.Format(Messages.BrandNameShouldBeMinimumLength, 3));
         }
     }
 }
