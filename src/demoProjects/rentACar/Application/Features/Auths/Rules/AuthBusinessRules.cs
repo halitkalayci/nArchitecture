@@ -31,5 +31,23 @@ namespace Application.Features.Auths.Rules
             if (HashingHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 throw new Exception(Messages.PasswordIncorrect);
         }
+
+        public Task OtpAuthenticatorMustExist(OtpAuthenticator? otpAuthenticator)
+        {
+            if (otpAuthenticator is null) throw new BusinessException(Messages.OtpNotFound);
+            return Task.CompletedTask;
+        }
+
+        public Task UserShouldNotHaveAuthenticator(User user)
+        {
+            if (user.AuthenticatorType is not Core.Security.Enums.AuthenticatorType.None) throw new BusinessException("User already have an active otp authenticator.");
+            return Task.CompletedTask;
+        }
+
+        public Task VerifiedOtpShouldNotExist(OtpAuthenticator? otpAuthenticator)
+        {
+            if(otpAuthenticator is not null && otpAuthenticator.IsVerified) throw new BusinessException("User already have a verified otp.");
+            return Task.CompletedTask;
+        }
     }
 }

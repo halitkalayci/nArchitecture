@@ -1,6 +1,8 @@
-﻿using Application.Features.Models.Commands.CreateModel;
+﻿using Application.Features.Brands.Queries.GetBrandListByDynamic;
+using Application.Features.Models.Commands.CreateModel;
 using Application.Features.Models.Queries.GetModelListWithBrand;
 using Core.Application.Requests;
+using Core.Persistence.Dynamic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +25,6 @@ namespace WebAPI.Controllers
             var result = await Mediator.Send(createModelCommand);
             return Created("", result);
         }
+       
     }
 }

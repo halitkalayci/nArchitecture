@@ -10,5 +10,7 @@ namespace Application.Features.Auths.Constants
     {
         public static string UserShouldExists = "Girilen bilgiler ile bir kullanıcı bulunamadı.";
         public static string PasswordIncorrect = "Şifre yanlış.";
+        public static string OtpNotFound = "OTP bulunamadı.";
+        public static string WrongOtpCode = "Girilen OTP kodu doğru değil.";
     }
 }

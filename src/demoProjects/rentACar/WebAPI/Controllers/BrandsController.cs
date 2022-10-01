@@ -1,7 +1,9 @@
 ﻿using Application.Features.Brands.Commands.CreateBrand;
 using Application.Features.Brands.Dtos;
 using Application.Features.Brands.Queries.GetBrandList;
+using Application.Features.Brands.Queries.GetBrandListByDynamic;
 using Core.Application.Requests;
+using Core.Persistence.Dynamic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +24,13 @@ namespace WebAPI.Controllers
         {
             GetBrandListQuery getBrandListQuery = new GetBrandListQuery() { PageRequest = pageRequest };
             var result = await Mediator.Send(getBrandListQuery);
+            return Ok(result);
+        }
+        [HttpPost("GetAll/ByDynamic")]
+        public async Task<IActionResult> GetAllByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic? dynamic = null)
+        {
+            GetBrandListByDynamicQuery getBrandListByDynamicQuery = new() { Dynamic = dynamic, PageRequest = pageRequest };
+            var result = await Mediator.Send(getBrandListByDynamicQuery);
             return Ok(result);
         }
     }

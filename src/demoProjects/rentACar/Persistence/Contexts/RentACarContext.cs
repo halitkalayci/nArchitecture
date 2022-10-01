@@ -57,6 +57,18 @@ namespace Persistence.Contexts
                 m.ToTable("UserOperationClaims").HasKey(m => m.Id);
             });
 
+            modelBuilder.Entity<OtpAuthenticator>(m =>
+            {
+                m.ToTable("OtpAuthenticators").HasKey(m => m.Id);
+                m.HasOne(m => m.User);
+            });
+
+            modelBuilder.Entity<EmailAuthenticator>(m =>
+            {
+                m.ToTable("EmailAuthenticators").HasKey(m => m.Id);
+                m.HasOne(m => m.User);
+            });
+
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash("123", out passwordHash, out passwordSalt);
 
